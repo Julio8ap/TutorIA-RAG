@@ -1,0 +1,96 @@
+GUÍA DIDÁCTICA DE SQL
+
+1. ¿Qué es SQL?
+SQL (Structured Query Language) es el lenguaje estándar para gestionar bases de datos relacionales.
+
+2. Comandos DDL (Data Definition Language)
+- CREATE: crea objetos.
+- ALTER: modifica objetos.
+- DROP: elimina objetos.
+- TRUNCATE: elimina todos los registros de una tabla.
+
+Ejemplos:
+CREATE TABLE clientes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    correo VARCHAR(100)
+);
+
+ALTER TABLE clientes ADD telefono VARCHAR(20);
+DROP TABLE clientes;
+
+3. Comandos DML (Data Manipulation Language)
+- INSERT
+- UPDATE
+- DELETE
+
+Ejemplos:
+INSERT INTO clientes (id, nombre, correo)
+VALUES (1, 'Juan Pérez', 'juan@email.com');
+
+UPDATE clientes
+SET correo = 'nuevo@email.com'
+WHERE id = 1;
+
+DELETE FROM clientes
+WHERE id = 1;
+
+4. Comandos DQL (Data Query Language)
+- SELECT
+
+Ejemplos:
+SELECT * FROM clientes;
+SELECT nombre, correo FROM clientes;
+SELECT * FROM clientes WHERE id = 1;
+SELECT * FROM clientes ORDER BY nombre ASC;
+SELECT * FROM clientes LIMIT 10;
+
+5. JOINs
+INNER JOIN:
+SELECT c.nombre, p.total
+FROM clientes c
+INNER JOIN pedidos p ON c.id = p.cliente_id;
+
+LEFT JOIN:
+SELECT c.nombre, p.total
+FROM clientes c
+LEFT JOIN pedidos p ON c.id = p.cliente_id;
+
+6. Funciones Agregadas
+- COUNT()
+- SUM()
+- AVG()
+- MAX()
+- MIN()
+
+Ejemplo:
+SELECT COUNT(*) AS total_clientes
+FROM clientes;
+
+7. GROUP BY y HAVING
+SELECT ciudad, COUNT(*) AS cantidad
+FROM clientes
+GROUP BY ciudad
+HAVING COUNT(*) > 5;
+
+8. Subconsultas
+SELECT nombre
+FROM clientes
+WHERE id IN (
+    SELECT cliente_id
+    FROM pedidos
+);
+
+9. Constraints
+- PRIMARY KEY
+- FOREIGN KEY
+- NOT NULL
+- UNIQUE
+- CHECK
+- DEFAULT
+
+10. Transacciones
+BEGIN;
+UPDATE cuentas SET saldo = saldo - 100 WHERE id = 1;
+UPDATE cuentas SET saldo = saldo + 100 WHERE id = 2;
+COMMIT;
